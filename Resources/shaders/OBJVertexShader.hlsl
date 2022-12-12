@@ -14,7 +14,7 @@ VSOutput main(float4 pos : POSITION, float3 normal : NORMAL, float2 uv : TEXCOOR
 	float3 diffuse = dot(-lightdir, normal) * m_diffuse;
 	const float3 eye = float3(0, 0, -20);
 	const float shininess = 4.0f;
-	float eyedir = normalize(eye - pos.xyz);
+	float3 eyedir = normalize(eye - pos.xyz);
 	float3 reflect = normalize(lightdir + 2 * dot(-lightdir, normal) * normal);
 	float3 specular = pow(saturate(dot(reflect, eyedir)), shininess) * m_specular;
 
