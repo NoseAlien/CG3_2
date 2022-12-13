@@ -19,10 +19,10 @@ void Model::StaticInitialize(ID3D12Device* device) {
 	Mesh::StaticInitialize(device);
 }
 
-Model* Model::CreateFromOBJ(const std::string& modelname) {
+Model* Model::CreateFromOBJ(const std::string& modelname, bool smoothing) {
 	// メモリ確保
 	Model* instance = new Model;
-	instance->Initialize(modelname);
+	instance->Initialize(modelname, smoothing);
 
 	return instance;
 }
@@ -39,7 +39,7 @@ Model::~Model() {
 	materials.clear();
 }
 
-void Model::Initialize(const std::string& modelname) {
+void Model::Initialize(const std::string& modelname, bool smoothing) {
 	const string filename = modelname + ".obj";
 	const string directoryPath = baseDirectory + modelname + "/";
 
@@ -83,6 +83,10 @@ void Model::Initialize(const std::string& modelname) {
 		if (key == "g") {
 
 			if (mesh->GetName().size() > 0) {
+				if (smoothing)
+				{
+					mesh->CalculateSmoothedVertexNormals();
+				}
 				// コンテナに登録
 				meshes.emplace_back(mesh);
 				// 次のメッシュ生成
@@ -166,6 +170,10 @@ void Model::Initialize(const std::string& modelname) {
 					vertex.normal = normals[indexNormal - 1];
 					vertex.uv = texcoords[indexTexcoord - 1];
 					mesh->AddVertex(vertex);
+					if (smoothing)
+					{
+						mesh->AddSmoothData(indexPosition, (unsigned short)mesh->GetVertexCount() - 1);
+					}
 				} else {
 					char c;
 					index_stream >> c;
@@ -177,6 +185,10 @@ void Model::Initialize(const std::string& modelname) {
 						vertex.normal = {0, 0, 1};
 						vertex.uv = {0, 0};
 						mesh->AddVertex(vertex);
+						if (smoothing)
+						{
+							mesh->AddSmoothData(indexPosition, (unsigned short)mesh->GetVertexCount() - 1);
+						}
 					} else {
 						index_stream.seekg(-1, ios_base::cur); // 1文字戻る
 						index_stream >> indexTexcoord;
@@ -188,6 +200,10 @@ void Model::Initialize(const std::string& modelname) {
 						vertex.normal = normals[indexNormal - 1];
 						vertex.uv = {0, 0};
 						mesh->AddVertex(vertex);
+						if (smoothing)
+						{
+							mesh->AddSmoothData(indexPosition, (unsigned short)mesh->GetVertexCount() - 1);
+						}
 					}
 				}
 				// インデックスデータの追加
@@ -206,6 +222,11 @@ void Model::Initialize(const std::string& modelname) {
 		}
 	}
 	file.close();
+
+	if (smoothing)
+	{
+		mesh->CalculateSmoothedVertexNormals();
+	}
 
 	// コンテナに登録
 	meshes.emplace_back(mesh);

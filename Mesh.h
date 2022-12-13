@@ -7,6 +7,7 @@
 #include <d3dx12.h>
 #include <vector>
 #include <wrl.h>
+#include<unordered_map>
 
 /// <summary>
 /// 形状データ
@@ -19,6 +20,7 @@ class Mesh {
 	using XMFLOAT2 = DirectX::XMFLOAT2;
 	using XMFLOAT3 = DirectX::XMFLOAT3;
 	using XMFLOAT4 = DirectX::XMFLOAT4;
+	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 
   public: // サブクラス
@@ -77,6 +79,12 @@ class Mesh {
 	/// <param name="material">マテリアル</param>
 	void SetMaterial(Material* material);
 
+	inline size_t GetVertexCount() { return vertices.size(); }
+
+	void AddSmoothData(unsigned short indexPosition, unsigned short indexVertex);
+
+	void CalculateSmoothedVertexNormals();
+
 	/// <summary>
 	/// バッファの生成
 	/// </summary>
@@ -121,4 +129,6 @@ class Mesh {
 	VertexPosNormalUv* vertMap = nullptr;
 	// インデックスバッファのマップ
 	unsigned short* indexMap = nullptr;
+	// 頂点法線スムージング用データ
+	std::unordered_map<unsigned short, std::vector<unsigned short>> smoothData;
 };
