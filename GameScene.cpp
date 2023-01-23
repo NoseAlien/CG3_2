@@ -51,8 +51,8 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
     // 3Dオブジェクトにカメラをセット
 	Object3d::SetCamera(camera);
 
-	light = Light::Create();
-	light->SetLightColor({ 1,1,1 });
+	light = LightGroup::Create();
+	light->SetDirectionalLightColor(0,{ 1,1,1 });
 	Object3d::SetLight(light);
 
 	// 背景スプライト生成
@@ -107,7 +107,7 @@ void GameScene::Update()
 		lightDir.m128_f32[0] -= 1.0f;
 	}
 
-	light->SetLightDir(lightDir);
+	light->SetDirectionalLightDir(0,lightDir);
 
 	std::ostringstream debugstr;
 	debugstr << "lightDirFactor("

@@ -6,7 +6,7 @@
 #include "Input.h"
 #include "Object3d.h"
 #include "Sprite.h"
-#include "Light.h"
+#include "LightGroup.h"
 #include <DirectXMath.h>
 
 /// <summary>
@@ -72,5 +72,5 @@ class GameScene {
 	Object3d* objFighter = nullptr;
 	Object3d* objSphere = nullptr;
 
-	Light* light = nullptr;
+	LightGroup* light = nullptr;
 };
