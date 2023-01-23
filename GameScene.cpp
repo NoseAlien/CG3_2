@@ -53,6 +53,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	light = LightGroup::Create();
 	light->SetDirectionalLightColor(0,{ 1,1,1 });
+	//light->SetDirectionalLightActive(0, true);
+	light->SetPointLightActive(0, true);
+	pointLightPos[0] = 0.5f;
+	pointLightPos[1] = 1.0f;
+	pointLightPos[2] = 0.0f;
+
 	Object3d::SetLight(light);
 
 	// 背景スプライト生成
@@ -108,6 +114,10 @@ void GameScene::Update()
 	}
 
 	light->SetDirectionalLightDir(0,lightDir);
+
+	light->SetPointLightPos(0, XMFLOAT3(pointLightPos));
+	light->SetPointLightColor(0, XMFLOAT3(pointLightColor));
+	light->SetPointLightAtten(0, XMFLOAT3(pointLightAtten));
 
 	std::ostringstream debugstr;
 	debugstr << "lightDirFactor("

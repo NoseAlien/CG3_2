@@ -20,16 +20,20 @@ public:
 	{
 		XMVECTOR lightv;
 		XMFLOAT3 lightcolor;
+		int active;
 	};
 
 private:
 	Comptr<ID3D12Resource> constBuff;
 	XMVECTOR lightdir = { 1,0,0,0 };
 	XMFLOAT3 lightcolor = { 1,1,1 };
+	bool active = false;
 
 public:
 	void SetLightDir(const XMVECTOR& lightdir);
 	inline XMVECTOR GetLightDir() { return lightdir; };
 	inline void SetLightColor(const XMFLOAT3& lightcolor) { this->lightcolor = lightcolor; };
 	inline XMFLOAT3 GetLightColor() { return lightcolor; };
+	inline void SetActive(bool active) { this->active = active; };
+	inline bool IsActive() { return active; };
 };

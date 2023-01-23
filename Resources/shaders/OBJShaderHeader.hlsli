@@ -1,3 +1,21 @@
+static const int POINTLIGHT_NUM = 3;
+static const int DIRLIGHT_NUM = 3;
+
+struct DirLight
+{
+	float3 lightv;
+	float3 lightcolor;
+	uint active;
+};
+
+struct PointLight
+{
+	float3 lightpos;
+	float3 lightcolor;
+	float3 lightatten;
+	uint active;
+};
+
 cbuffer cbuff0 : register(b0)
 {
 	matrix viewproj;
@@ -15,8 +33,9 @@ cbuffer cbuff1 : register(b1)
 
 cbuffer cbuff2 : register(b2)
 {
-	float3 lightv;
-	float3 lightcolor;
+	float3 ambientColor;
+	DirLight dirLights[DIRLIGHT_NUM];
+	PointLight pointLights[POINTLIGHT_NUM];
 };
 
 // 頂点シェーダーからピクセルシェーダーへのやり取りに使用する構造体

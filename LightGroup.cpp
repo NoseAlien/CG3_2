@@ -70,8 +70,16 @@ void LightGroup::TransferConstBuffer()
 	{
 		for (int i = 0; i < DirLightNum; i++)
 		{
-			constMap->dirLights[i].lightv = dirLights[i].GetLightDir();
-			constMap->dirLights[i].lightcolor = dirLights[i].GetLightColor();
+			if (dirLights[i].IsActive())
+			{
+				constMap->dirLights[i].active = 1;
+				constMap->dirLights[i].lightv = dirLights[i].GetLightDir();
+				constMap->dirLights[i].lightcolor = dirLights[i].GetLightColor();
+			}
+			else
+			{
+				constMap->dirLights[i].active = 0;
+			}
 		}
 		for (int i = 0; i < PointLightNum; i++)
 		{
@@ -92,6 +100,13 @@ void LightGroup::TransferConstBuffer()
 		}
 	}
 	constBuff->Unmap(0, nullptr);
+}
+
+void LightGroup::SetDirectionalLightActive(int index, bool active)
+{
+	assert(0 <= index && index < DirLightNum);
+
+	dirLights[index].SetActive(active);
 }
 
 void LightGroup::SetDirectionalLightColor(int index, const XMFLOAT3& lightcolor)

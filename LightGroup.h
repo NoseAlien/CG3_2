@@ -45,6 +45,7 @@ public:
 	void Draw(ID3D12GraphicsCommandList* cmdList, UINT rootParameterIndex);
 	void TransferConstBuffer();
 
+	void SetDirectionalLightActive(int index, bool active);
 	void SetDirectionalLightColor(int index, const XMFLOAT3& lightcolor);
 	void SetDirectionalLightDir(int index, const XMVECTOR& lightdir);
 
