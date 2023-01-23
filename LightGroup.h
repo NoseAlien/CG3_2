@@ -2,6 +2,7 @@
 
 #include "PointLight.h"
 #include "DirectionalLight.h"
+#include "SpotLight.h"
 
 class LightGroup
 {
@@ -15,8 +16,9 @@ private://エイリアス
 	using XMMATRIX = DirectX::XMMATRIX;
 
 private:
-	static const int DirLightNum = 1;
+	static const int DirLightNum = 3;
 	static const int PointLightNum = 3;
+	static const int SpotLightNum = 3;
 
 public://サブクラス
 	//定数バッファ用データ構造体
@@ -29,6 +31,8 @@ public://サブクラス
 		DirectionalLight::ConstBufferData dirLights[DirLightNum];
 		//点光源用
 		PointLight::ConstBufferData pointLights[PointLightNum];
+		//スポットライト用
+		SpotLight::ConstBufferData pointLights[SpotLightNum];
 	};
 
 private:
@@ -36,6 +40,7 @@ private:
 
 	DirectionalLight dirLights[DirLightNum];
 	PointLight pointLights[PointLightNum];
+	SpotLight spotLights[SpotLightNum];
 
 	bool dirty = false;
 
@@ -53,6 +58,13 @@ public:
 	void SetPointLightPos(int index, const XMFLOAT3& lightpos);
 	void SetPointLightColor(int index, const XMFLOAT3& lightcolor);
 	void SetPointLightAtten(int index, const XMFLOAT3& lightatten);
+
+	void SetSpotLightActive(int index, bool active);
+	void SetSpotLightDir(int index, const XMVECTOR& lightdir);
+	void SetSpotLightPos(int index, const XMFLOAT3& lightpos);
+	void SetSpotLightColor(int index, const XMFLOAT3& lightcolor);
+	void SetSpotLightAtten(int index, const XMFLOAT3& lightatten);
+	void SetSpotLightFactorAngle(int index, const XMFLOAT2& lightFactorAngle);
 
 private:
 	static ID3D12Device* device;
