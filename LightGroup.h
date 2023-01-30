@@ -32,7 +32,7 @@ public://サブクラス
 		//点光源用
 		PointLight::ConstBufferData pointLights[PointLightNum];
 		//スポットライト用
-		SpotLight::ConstBufferData pointLights[SpotLightNum];
+		SpotLight::ConstBufferData spotLights[SpotLightNum];
 	};
 
 private:

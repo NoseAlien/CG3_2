@@ -43,6 +43,29 @@ float4 main(VSOutput input) : SV_TARGET
 			shadecolor.rgb += atten * (diffuse + specular) * pointLights[i].lightcolor;
 		}
 	}
+
+	//スポットライト
+	for (i = 0; i < SPOTLIGHT_NUM; i++)
+	{
+		if (spotLights[i].active)
+		{
+			float3 lightv = spotLights[i].lightpos - input.worldpos.xyz;
+			float d = length(lightv);
+			lightv = normalize(lightv);
+			float atten = saturate(1.0f / (spotLights[i].lightatten.x + pointLights[i].lightatten.y * d +
+				spotLights[i].lightatten.z * d * d));
+			float cos = dot(lightv, spotLights[i].lightv);
+			float angleatten = smoothstep(spotLights[i].lightfactoranglecos.y, spotLights[i].lightfactoranglecos.x, cos);
+			atten *= angleatten;
+			float3 dotlightnormal = dot(lightv, input.normal);
+			float3 reflect = normalize(-lightv + 2 * dotlightnormal * input.normal);
+			float3 diffuse = dotlightnormal * m_diffuse;
+			float3 specular = pow(saturate(dot(reflect, eyedir)), shininess) * m_specular;
+
+			shadecolor.rgb += atten * (diffuse + specular) * pointLights[i].lightcolor;
+		}
+	}
+
 	shadecolor.a = m_alpha;
 
 	return shadecolor * texcolor;

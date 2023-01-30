@@ -53,11 +53,12 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Input* input)
 
 	light = LightGroup::Create();
 	light->SetDirectionalLightColor(0,{ 1,1,1 });
-	light->SetDirectionalLightActive(0, true);
+	//light->SetDirectionalLightActive(0, true);
 	//light->SetPointLightActive(0, true);
-	pointLightPos[0] = 0.5f;
-	pointLightPos[1] = 1.0f;
-	pointLightPos[2] = 0.0f;
+	//pointLightPos[0] = 0.5f;
+	//pointLightPos[1] = 1.0f;
+	//pointLightPos[2] = 0.0f;
+	light->SetSpotLightActive(0, true);
 
 	Object3d::SetLight(light);
 
