@@ -3,6 +3,7 @@
 #include <cassert>
 #include <sstream>
 #include <iomanip>
+#include <imgui.h>
 
 using namespace DirectX;
 
@@ -94,27 +95,9 @@ void GameScene::Update()
 	objSphere->SetRotation(rot);
 	objFighter->SetRotation(rot);
 
-
-	static XMVECTOR lightDir = { 0,1,5,0 };
-
-	if (input->PushKey(DIK_W))
-	{
-		lightDir.m128_f32[1] += 1.0f;
-	}
-	if (input->PushKey(DIK_S))
-	{
-		lightDir.m128_f32[1] -= 1.0f;
-	}
-	if (input->PushKey(DIK_D))
-	{
-		lightDir.m128_f32[0] += 1.0f;
-	}
-	if (input->PushKey(DIK_A))
-	{
-		lightDir.m128_f32[0] -= 1.0f;
-	}
-
-	light->SetDirectionalLightDir(0,lightDir);
+	light->SetDirectionalLightActive(0, lightActive0);
+	light->SetDirectionalLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
+	light->SetDirectionalLightColor(0, XMFLOAT3(lightColor0));
 
 	light->SetPointLightPos(0, XMFLOAT3(pointLightPos));
 	light->SetPointLightColor(0, XMFLOAT3(pointLightColor));
@@ -127,15 +110,6 @@ void GameScene::Update()
 	light->SetSpotLightFactorAngle(0, XMFLOAT2(spotLightFactorAngle));
 
 	std::ostringstream debugstr;
-	debugstr << "lightDirFactor("
-		<< std::fixed << std::setprecision(2)
-		<< lightDir.m128_f32[0] << ","
-		<< lightDir.m128_f32[1] << ","
-		<< lightDir.m128_f32[2] << ")";
-	debugText.Print(debugstr.str(), 50, 110, 1.0f);
-
-	debugstr.str("");
-	debugstr.clear();
 
 	const XMFLOAT3& cameraPos = camera->GetEye();
 	debugstr << "cameraPos("
@@ -212,6 +186,15 @@ void GameScene::Draw()
 
 	// デバッグテキストの描画
 	debugText.DrawAll(cmdList);
+
+	ImGui::Begin("Light");
+	ImGui::SetWindowPos(ImVec2(0, 0));
+	ImGui::SetWindowSize(ImVec2(500, 200));
+
+	ImGui::InputFloat3("lightDir0", lightDir0);
+	ImGui::ColorEdit3("lightColor0", lightColor0, ImGuiColorEditFlags_Float);
+
+	ImGui::End();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();

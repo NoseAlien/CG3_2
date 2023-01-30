@@ -74,6 +74,18 @@ class GameScene {
 
 	LightGroup* light = nullptr;
 
+	float ambientColor0[3] = { 1,1,1 };
+
+	bool lightActive0 = true;
+	float lightDir0[3] = { 1,1,1 };
+	float lightColor0[3] = { 1,1,1 };
+
+	float lightDir1[3] = { 0,1,0 };
+	float lightColor1[3] = { 0,1,0 };
+
+	float lightDir2[3] = { 1,0,0 };
+	float lightColor2[3] = { 0,0,1 };
+
 	float pointLightPos[3] = { 0,0,0 };
 	float pointLightColor[3] = { 1,1,1 };
 	float pointLightAtten[3] = { 0.3f,0.1f,0.1f };
@@ -83,4 +95,10 @@ class GameScene {
 	float spotLightColor[3] = { 1,1,1 };
 	float spotLightAtten[3] = { 0.0f,0.0f,0.0f };
 	float spotLightFactorAngle[2] = { 20.0f, 30.0f };
+
+	float circleShadowDir[3] = { 0,-1,0 };
+	float circleShadowAtten[3] = { 0.5f,0.6f,0.0f };
+	float circleShadowFactorAngle[2] = { 0.0f,0.5f };
+
+	float fighterPos[3] = { 1,0.0f,0 };
 };

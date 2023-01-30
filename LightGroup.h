@@ -3,6 +3,7 @@
 #include "PointLight.h"
 #include "DirectionalLight.h"
 #include "SpotLight.h"
+#include "CircleShadow.h"
 
 class LightGroup
 {
@@ -19,6 +20,7 @@ private:
 	static const int DirLightNum = 3;
 	static const int PointLightNum = 3;
 	static const int SpotLightNum = 3;
+	static const int CircleShadowNum = 1;
 
 public://サブクラス
 	//定数バッファ用データ構造体
@@ -33,6 +35,8 @@ public://サブクラス
 		PointLight::ConstBufferData pointLights[PointLightNum];
 		//スポットライト用
 		SpotLight::ConstBufferData spotLights[SpotLightNum];
+		//丸影用
+		CircleShadow::ConstBufferData circleShadows[CircleShadowNum];
 	};
 
 private:
@@ -41,6 +45,7 @@ private:
 	DirectionalLight dirLights[DirLightNum];
 	PointLight pointLights[PointLightNum];
 	SpotLight spotLights[SpotLightNum];
+	CircleShadow circleShadows[CircleShadowNum];
 
 	bool dirty = false;
 
@@ -65,6 +70,13 @@ public:
 	void SetSpotLightColor(int index, const XMFLOAT3& lightcolor);
 	void SetSpotLightAtten(int index, const XMFLOAT3& lightatten);
 	void SetSpotLightFactorAngle(int index, const XMFLOAT2& lightFactorAngle);
+
+	void SetCircleShadowActive(int index, bool active);
+	void SetCircleShadowCasterPos(int index, const XMFLOAT3& lightpos);
+	void SetCircleShadowDir(int index, const XMVECTOR& lightdir);
+	void SetCircleShadowDistanceCasterLight(int index, float distancecasterlight);
+	void SetCircleShadowAtten(int index, const XMFLOAT3& atten);
+	void SetCircleShadowFactorAngle(int index, const XMFLOAT2& factorangle);
 
 private:
 	static ID3D12Device* device;
