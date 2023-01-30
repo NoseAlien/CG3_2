@@ -77,7 +77,7 @@ class GameScene {
 	float ambientColor0[3] = { 1,1,1 };
 
 	bool lightActive0 = true;
-	float lightDir0[3] = { 1,1,1 };
+	float lightDir0[3] = { 1,1,-1 };
 	float lightColor0[3] = { 1,1,1 };
 
 	float lightDir1[3] = { 0,1,0 };
@@ -90,6 +90,7 @@ class GameScene {
 	float pointLightColor[3] = { 1,1,1 };
 	float pointLightAtten[3] = { 0.3f,0.1f,0.1f };
 
+	bool spotLightActive = true;
 	float spotLightDir[3] = { 0,-1,0 };
 	float spotLightPos[3] = { 0,5,0 };
 	float spotLightColor[3] = { 1,1,1 };

@@ -189,10 +189,18 @@ void GameScene::Draw()
 
 	ImGui::Begin("Light");
 	ImGui::SetWindowPos(ImVec2(0, 0));
-	ImGui::SetWindowSize(ImVec2(500, 200));
+	ImGui::SetWindowSize(ImVec2(500, 1000));
 
+	ImGui::Checkbox("lightActive0", &lightActive0);
 	ImGui::InputFloat3("lightDir0", lightDir0);
 	ImGui::ColorEdit3("lightColor0", lightColor0, ImGuiColorEditFlags_Float);
+
+	ImGui::Checkbox("spotLightActive", &spotLightActive);
+	ImGui::InputFloat3("spotLightDir", spotLightDir);
+	ImGui::InputFloat3("spotLightPos", spotLightPos);
+	ImGui::ColorEdit3("spotLightColor", spotLightColor, ImGuiColorEditFlags_Float);
+	ImGui::InputFloat3("spotLightAtten", spotLightAtten);
+	ImGui::InputFloat2("spotLightFactorAngle", spotLightFactorAngle);
 
 	ImGui::End();
 
