@@ -99,6 +99,14 @@ void GameScene::Update()
 	light->SetDirectionalLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
 	light->SetDirectionalLightColor(0, XMFLOAT3(lightColor0));
 
+	light->SetDirectionalLightActive(1, lightActive1);
+	light->SetDirectionalLightDir(1, XMVECTOR({ lightDir1[0], lightDir1[1], lightDir1[2], 0 }));
+	light->SetDirectionalLightColor(1, XMFLOAT3(lightColor1));
+
+	light->SetDirectionalLightActive(2, lightActive2);
+	light->SetDirectionalLightDir(2, XMVECTOR({ lightDir2[0], lightDir2[1], lightDir2[2], 0 }));
+	light->SetDirectionalLightColor(2, XMFLOAT3(lightColor2));
+
 	light->SetPointLightPos(0, XMFLOAT3(pointLightPos));
 	light->SetPointLightColor(0, XMFLOAT3(pointLightColor));
 	light->SetPointLightAtten(0, XMFLOAT3(pointLightAtten));
@@ -191,9 +199,17 @@ void GameScene::Draw()
 	ImGui::SetWindowPos(ImVec2(0, 0));
 	ImGui::SetWindowSize(ImVec2(500, 1000));
 
-	ImGui::Checkbox("lightActive0", &lightActive0);
-	ImGui::InputFloat3("lightDir0", lightDir0);
-	ImGui::ColorEdit3("lightColor0", lightColor0, ImGuiColorEditFlags_Float);
+	ImGui::Checkbox("dirLightActive0", &lightActive0);
+	ImGui::InputFloat3("dirLightDir0", lightDir0);
+	ImGui::ColorEdit3("dirLightColor0", lightColor0, ImGuiColorEditFlags_Float);
+
+	ImGui::Checkbox("dirLightActive1", &lightActive1);
+	ImGui::InputFloat3("dirLightDir1", lightDir1);
+	ImGui::ColorEdit3("dirLightColor1", lightColor1, ImGuiColorEditFlags_Float);
+
+	ImGui::Checkbox("dirLightActive2", &lightActive2);
+	ImGui::InputFloat3("dirLightDir2", lightDir2);
+	ImGui::ColorEdit3("dirLightColor2", lightColor2, ImGuiColorEditFlags_Float);
 
 	ImGui::Checkbox("spotLightActive", &spotLightActive);
 	ImGui::InputFloat3("spotLightDir", spotLightDir);

@@ -80,9 +80,11 @@ class GameScene {
 	float lightDir0[3] = { 1,1,-1 };
 	float lightColor0[3] = { 1,1,1 };
 
+	bool lightActive1 = true;
 	float lightDir1[3] = { 0,1,0 };
 	float lightColor1[3] = { 0,1,0 };
 
+	bool lightActive2 = true;
 	float lightDir2[3] = { 1,0,0 };
 	float lightColor2[3] = { 0,0,1 };
 
