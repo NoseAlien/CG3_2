@@ -120,6 +120,12 @@ void GameScene::Update()
 	light->SetPointLightColor(0, XMFLOAT3(pointLightColor));
 	light->SetPointLightAtten(0, XMFLOAT3(pointLightAtten));
 
+	light->SetSpotLightDir(0, XMVECTOR({spotLightDir[0], spotLightDir[1], spotLightDir[2], 0}));
+	light->SetSpotLightPos(0, XMFLOAT3(spotLightPos));
+	light->SetSpotLightColor(0, XMFLOAT3(spotLightColor));
+	light->SetSpotLightAtten(0, XMFLOAT3(spotLightAtten));
+	light->SetSpotLightFactorAngle(0, XMFLOAT2(spotLightFactorAngle));
+
 	std::ostringstream debugstr;
 	debugstr << "lightDirFactor("
 		<< std::fixed << std::setprecision(2)

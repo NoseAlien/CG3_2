@@ -104,7 +104,10 @@ void LightGroup::TransferConstBuffer()
 			{
 				constMap->spotLights[i].active = 1;
 				constMap->spotLights[i].lightv =
-					spotLights[i].GetLightDir();
+				{ -spotLights[i].GetLightDir().m128_f32[0],
+					-spotLights[i].GetLightDir().m128_f32[1],
+					-spotLights[i].GetLightDir().m128_f32[2],
+					-spotLights[i].GetLightDir().m128_f32[3] };
 				constMap->spotLights[i].lightpos =
 					spotLights[i].GetLightPos();
 				constMap->spotLights[i].lightcolor =
